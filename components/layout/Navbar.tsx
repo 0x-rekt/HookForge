@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Terminal } from "lucide-react";
+import { Terminal, ChevronDown } from "lucide-react";
 import { signOut, useSession } from "@/lib/auth-client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export function Navbar() {
-  const { data, isPending, refetch } = useSession();
+  const { data, refetch } = useSession();
   const router = useRouter();
 
   const handleSignOut = async () => {
@@ -18,80 +18,76 @@ export function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-zinc-900 bg-zinc-950/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-white/[0.08] bg-[#0A0F0C]/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto flex h-16 items-center justify-between px-6">
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-10">
           <Link
             href="/"
-            className="flex items-center gap-2 transition-opacity hover:opacity-80"
+            className="flex items-center gap-2.5 transition-opacity hover:opacity-80"
           >
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500/10 border border-indigo-500/20">
-              <Terminal className="h-4 w-4 text-indigo-400" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#D4FF3D]/10 border border-[#D4FF3D]/20">
+              <Terminal className="h-4 w-4 text-[#D4FF3D]" />
             </div>
-            <span className="font-bold text-xl tracking-tight text-zinc-50">
+            <span className="font-bold text-xl tracking-tight text-[#F5F7F5]">
               Relay
             </span>
           </Link>
 
-          <nav className="hidden md:flex gap-6">
+          <nav className="hidden md:flex items-center gap-1">
             {data?.user && (
               <Link
                 href="/dashboard"
-                className="hidden text-sm font-medium text-zinc-300 hover:text-zinc-50 sm:block transition-colors"
+                className="hidden text-sm font-medium text-[#8A938E] hover:text-[#F5F7F5] sm:block transition-colors px-3 py-2"
               >
                 Dashboard
               </Link>
             )}
+            <button className="flex items-center gap-1 text-sm font-medium text-[#8A938E] hover:text-[#F5F7F5] transition-colors px-3 py-2 cursor-pointer">
+              Developer Tools
+              <ChevronDown className="w-3.5 h-3.5" />
+            </button>
             <Link
               href="#features"
-              className="text-sm font-medium text-zinc-400 hover:text-zinc-50 transition-colors"
+              className="text-sm font-medium text-[#8A938E] hover:text-[#F5F7F5] transition-colors px-3 py-2"
             >
               Features
             </Link>
             <Link
               href="#integrations"
-              className="text-sm font-medium text-zinc-400 hover:text-zinc-50 transition-colors"
+              className="text-sm font-medium text-[#8A938E] hover:text-[#F5F7F5] transition-colors px-3 py-2"
             >
               Integrations
             </Link>
             <Link
-              href="#docs"
-              className="text-sm font-medium text-zinc-400 hover:text-zinc-50 transition-colors"
-            >
-              Documentation
-            </Link>
-            <Link
               href="#pricing"
-              className="text-sm font-medium text-zinc-400 hover:text-zinc-50 transition-colors"
+              className="text-sm font-medium text-[#8A938E] hover:text-[#F5F7F5] transition-colors px-3 py-2"
             >
               Pricing
             </Link>
           </nav>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
+          <span className="hidden sm:flex h-2 w-2 rounded-full bg-[#D4FF3D] animate-glow-pulse" />
           {data?.user ? (
             <div className="flex items-center gap-4">
               <Image
                 src={data.user.image!}
                 alt="Avatar"
-                width={40}
-                height={40}
-                className="rounded-full"
+                width={32}
+                height={32}
+                className="rounded-full ring-2 ring-white/10"
               />
               <Button
                 onClick={handleSignOut}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-full px-5 font-medium transition-all cursor-pointer"
+                className="bg-[#D4FF3D] hover:bg-[#D4FF3D]/90 text-[#0A0F0C] rounded-full px-5 h-9 font-semibold text-sm transition-all cursor-pointer"
               >
                 Sign Out
               </Button>
             </div>
           ) : (
-            <Link
-              href="/login"
-              className="hidden text-sm font-medium text-zinc-300 hover:text-zinc-50 sm:block transition-colors"
-            >
-              <Button className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-full px-5 font-medium transition-all cursor-pointer">
+            <Link href="/login">
+              <Button className="bg-[#D4FF3D] hover:bg-[#D4FF3D]/90 text-[#0A0F0C] rounded-full px-5 h-9 font-semibold text-sm transition-all cursor-pointer">
                 Get Started
               </Button>
             </Link>

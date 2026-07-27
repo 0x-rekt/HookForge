@@ -12,12 +12,12 @@ export default async function IntegrationsPage({ params }: PageProps) {
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-zinc-900">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-white/[0.08]">
         <div>
-          <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-zinc-100">
+          <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-[#F5F7F5]">
             Integrations
           </h1>
-          <p className="text-zinc-400 text-sm mt-1">
+          <p className="text-[#8A938E] text-sm mt-1">
             Connect your developer tools to enable workflow triggers and
             agentic actions.
           </p>

@@ -23,8 +23,8 @@ export default async function WorkspacePage({ params }: PageProps) {
   if (!workspace) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh] text-center p-6">
-        <div className="flex items-center gap-3 p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-200 text-sm font-mono max-w-md">
-          <AlertCircle className="w-5 h-5 shrink-0 text-rose-400" />
+        <div className="flex items-center gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-200 text-sm font-mono max-w-md">
+          <AlertCircle className="w-5 h-5 shrink-0 text-red-400" />
           <span>
             Error: Workspace not found or you do not have permission to access
             it.
@@ -40,17 +40,17 @@ export default async function WorkspacePage({ params }: PageProps) {
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       {/* Welcome banner */}
-      <div className="relative overflow-hidden rounded-3xl border border-zinc-800 bg-gradient-to-br from-zinc-900/60 via-zinc-950 to-indigo-950/10 p-8 md:p-10">
-        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-indigo-500/10 blur-[80px] rounded-full pointer-events-none -translate-y-12 translate-x-12" />
+      <div className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-br from-[#151C17] via-[#0D1410] to-[#0A0F0C] p-8 md:p-10">
+        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#D4FF3D]/5 blur-[80px] rounded-full pointer-events-none -translate-y-12 translate-x-12" />
         <div className="relative z-10 space-y-4">
-          <div className="inline-flex h-8 items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-mono">
-            <span className="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse" />
+          <div className="inline-flex h-8 items-center gap-1.5 px-3 py-1 rounded-full bg-[#D4FF3D]/10 border border-[#D4FF3D]/20 text-[#D4FF3D] text-xs font-mono">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#D4FF3D] animate-pulse" />
             Active Workspace
           </div>
-          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-zinc-100">
+          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#F5F7F5]">
             Welcome to {workspace.name}
           </h1>
-          <p className="text-zinc-400 text-sm md:text-base max-w-2xl leading-relaxed">
+          <p className="text-[#8A938E] text-sm md:text-base max-w-2xl leading-relaxed">
             Monitor real-time workflow executions, set up autopilot debugging
             rules, and track your resource usage. Connect your developer tools
             to automate incident response.
@@ -59,32 +59,32 @@ export default async function WorkspacePage({ params }: PageProps) {
       </div>
 
       {/* Metrics Row */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         {/* Metric: AI Tokens */}
-        <Card className="bg-zinc-950/60 border-zinc-800/80 hover:border-indigo-500/30 transition-all hover:bg-zinc-900/10">
+        <Card className="bg-[#151C17] border-white/[0.08] hover:border-[#D4FF3D]/20 transition-all rounded-xl">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <div className="space-y-1">
-              <span className="text-xs font-mono uppercase tracking-wider text-zinc-500">
+              <span className="text-xs font-mono uppercase tracking-wider text-[#8A938E]">
                 AI Tokens Used
               </span>
-              <p className="text-2xl font-bold font-mono text-zinc-100">
+              <p className="text-2xl font-bold font-mono text-[#F5F7F5]">
                 {workspace.ai_tokens_used.toLocaleString()}
               </p>
             </div>
-            <div className="h-9 w-9 flex items-center justify-center rounded-xl bg-indigo-500/10 border border-indigo-500/20">
-              <Cpu className="h-4.5 w-4.5 text-indigo-400" />
+            <div className="h-9 w-9 flex items-center justify-center rounded-lg bg-[#D4FF3D]/10 border border-[#D4FF3D]/20">
+              <Cpu className="h-4.5 w-4.5 text-[#D4FF3D]" />
             </div>
           </CardHeader>
           <CardContent className="pt-2">
-            <div className="h-1.5 w-full bg-zinc-900 rounded-full overflow-hidden">
+            <div className="h-1.5 w-full bg-white/[0.06] rounded-full overflow-hidden">
               <div
-                className="h-full bg-indigo-500 rounded-full"
+                className="h-full bg-[#D4FF3D] rounded-full"
                 style={{
                   width: `${Math.min(100, (workspace.ai_tokens_used / 100000) * 100)}%`,
                 }}
               />
             </div>
-            <div className="flex justify-between items-center mt-2 text-[10px] font-mono text-zinc-500">
+            <div className="flex justify-between items-center mt-2 text-[10px] font-mono text-[#8A938E]">
               <span>Usage relative to limit</span>
               <span>100K Limit</span>
             </div>
@@ -92,30 +92,30 @@ export default async function WorkspacePage({ params }: PageProps) {
         </Card>
 
         {/* Metric: NL Gens */}
-        <Card className="bg-zinc-950/60 border-zinc-800/80 hover:border-indigo-500/30 transition-all hover:bg-zinc-900/10">
+        <Card className="bg-[#151C17] border-white/[0.08] hover:border-[#D4FF3D]/20 transition-all rounded-xl">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <div className="space-y-1">
-              <span className="text-xs font-mono uppercase tracking-wider text-zinc-500">
+              <span className="text-xs font-mono uppercase tracking-wider text-[#8A938E]">
                 NL Generations
               </span>
-              <p className="text-2xl font-bold font-mono text-zinc-100">
+              <p className="text-2xl font-bold font-mono text-[#F5F7F5]">
                 {workspace.nl_gens_used.toLocaleString()}
               </p>
             </div>
-            <div className="h-9 w-9 flex items-center justify-center rounded-xl bg-purple-500/10 border border-purple-500/20">
-              <Sparkles className="h-4.5 w-4.5 text-purple-400" />
+            <div className="h-9 w-9 flex items-center justify-center rounded-lg bg-[#C792EA]/10 border border-[#C792EA]/20">
+              <Sparkles className="h-4.5 w-4.5 text-[#C792EA]" />
             </div>
           </CardHeader>
           <CardContent className="pt-2">
-            <div className="h-1.5 w-full bg-zinc-900 rounded-full overflow-hidden">
+            <div className="h-1.5 w-full bg-white/[0.06] rounded-full overflow-hidden">
               <div
-                className="h-full bg-purple-500 rounded-full"
+                className="h-full bg-[#C792EA] rounded-full"
                 style={{
                   width: `${Math.min(100, (workspace.nl_gens_used / 500) * 100)}%`,
                 }}
               />
             </div>
-            <div className="flex justify-between items-center mt-2 text-[10px] font-mono text-zinc-500">
+            <div className="flex justify-between items-center mt-2 text-[10px] font-mono text-[#8A938E]">
               <span>Usage relative to limit</span>
               <span>500 Limit</span>
             </div>
@@ -123,18 +123,18 @@ export default async function WorkspacePage({ params }: PageProps) {
         </Card>
 
         {/* Metric: Members */}
-        <Card className="bg-zinc-950/60 border-zinc-800/80 hover:border-indigo-500/30 transition-all hover:bg-zinc-900/10">
+        <Card className="bg-[#151C17] border-white/[0.08] hover:border-[#D4FF3D]/20 transition-all rounded-xl">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <div className="space-y-1">
-              <span className="text-xs font-mono uppercase tracking-wider text-zinc-500">
+              <span className="text-xs font-mono uppercase tracking-wider text-[#8A938E]">
                 Team Size
               </span>
-              <p className="text-2xl font-bold font-mono text-zinc-100">
+              <p className="text-2xl font-bold font-mono text-[#F5F7F5]">
                 {members.length}
               </p>
             </div>
-            <div className="h-9 w-9 flex items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-              <Users className="h-4.5 w-4.5 text-emerald-400" />
+            <div className="h-9 w-9 flex items-center justify-center rounded-lg bg-[#7DA6F5]/10 border border-[#7DA6F5]/20">
+              <Users className="h-4.5 w-4.5 text-[#7DA6F5]" />
             </div>
           </CardHeader>
           <CardContent className="pt-2">
@@ -145,7 +145,7 @@ export default async function WorkspacePage({ params }: PageProps) {
                 return (
                   <div
                     key={idx}
-                    className="relative inline-block h-6 w-6 rounded-full ring-2 ring-zinc-950"
+                    className="relative inline-block h-6 w-6 rounded-full ring-2 ring-[#151C17]"
                   >
                     <Image
                       src={
@@ -160,25 +160,25 @@ export default async function WorkspacePage({ params }: PageProps) {
                 );
               })}
             </div>
-            <div className="mt-2 text-[10px] font-mono text-zinc-500">
+            <div className="mt-2 text-[10px] font-mono text-[#8A938E]">
               <span>Active workspace collaborators</span>
             </div>
           </CardContent>
         </Card>
 
         {/* Metric: Owner */}
-        <Card className="bg-zinc-950/60 border-zinc-800/80 hover:border-indigo-500/30 transition-all hover:bg-zinc-900/10">
+        <Card className="bg-[#151C17] border-white/[0.08] hover:border-[#D4FF3D]/20 transition-all rounded-xl">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <div className="space-y-1">
-              <span className="text-xs font-mono uppercase tracking-wider text-zinc-500">
+              <span className="text-xs font-mono uppercase tracking-wider text-[#8A938E]">
                 Owner
               </span>
-              <p className="text-sm font-bold text-zinc-200 truncate max-w-[150px]">
+              <p className="text-sm font-bold text-[#F5F7F5] truncate max-w-[150px]">
                 {owner?.name || "Unknown"}
               </p>
             </div>
-            <div className="h-9 w-9 flex items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/20">
-              <Shield className="h-4.5 w-4.5 text-blue-400" />
+            <div className="h-9 w-9 flex items-center justify-center rounded-lg bg-[#B4E667]/10 border border-[#B4E667]/20">
+              <Shield className="h-4.5 w-4.5 text-[#B4E667]" />
             </div>
           </CardHeader>
           <CardContent className="pt-2 flex items-center gap-2">
@@ -192,7 +192,7 @@ export default async function WorkspacePage({ params }: PageProps) {
                 />
               </div>
             )}
-            <div className="text-[10px] font-mono text-zinc-500 truncate">
+            <div className="text-[10px] font-mono text-[#8A938E] truncate">
               {owner?.email || ""}
             </div>
           </CardContent>
@@ -200,15 +200,15 @@ export default async function WorkspacePage({ params }: PageProps) {
       </div>
 
       {/* Main Actions Panel */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Quick Launch Card */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="p-6 rounded-3xl border border-zinc-800/80 bg-zinc-900/10 flex flex-col justify-between h-full space-y-6">
+          <div className="p-6 rounded-2xl border border-white/[0.08] bg-[#151C17] flex flex-col justify-between h-full space-y-6">
             <div className="space-y-2">
-              <h3 className="text-lg font-bold text-zinc-100">
+              <h3 className="text-lg font-bold text-[#F5F7F5]">
                 Get Started with Workflows
               </h3>
-              <p className="text-sm text-zinc-400 leading-relaxed">
+              <p className="text-sm text-[#8A938E] leading-relaxed">
                 Connect triggers from Sentry, GitHub, or PagerDuty to execute
                 script paths and auto-remediate issues using autonomous dev
                 agents.
@@ -217,14 +217,14 @@ export default async function WorkspacePage({ params }: PageProps) {
             <div className="flex flex-wrap gap-4">
               <Link
                 href={`/dashboard/${workspaceId}/workflows`}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-zinc-50 text-sm font-medium transition-all group cursor-pointer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#D4FF3D] hover:bg-[#D4FF3D]/90 text-[#0A0F0C] text-sm font-semibold transition-all group cursor-pointer"
               >
                 Configure Workflows
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
               <Link
                 href={`/dashboard/${workspaceId}/executions`}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-300 text-sm font-medium transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/[0.04] border border-white/[0.08] hover:border-white/[0.15] hover:bg-white/[0.06] text-[#8A938E] hover:text-[#F5F7F5] text-sm font-medium transition-all cursor-pointer"
               >
                 View History
               </Link>
@@ -233,27 +233,27 @@ export default async function WorkspacePage({ params }: PageProps) {
         </div>
 
         {/* Integration Status Card */}
-        <div className="p-6 rounded-3xl border border-zinc-800/80 bg-zinc-900/10 space-y-4">
-          <h3 className="text-base font-bold text-zinc-100 flex items-center gap-2">
-            <Activity className="w-4.5 h-4.5 text-indigo-400" />
+        <div className="p-6 rounded-2xl border border-white/[0.08] bg-[#151C17] space-y-4">
+          <h3 className="text-base font-bold text-[#F5F7F5] flex items-center gap-2">
+            <Activity className="w-4.5 h-4.5 text-[#D4FF3D]" />
             Integrations
           </h3>
           <div className="space-y-3 font-mono text-xs">
-            <div className="flex items-center justify-between p-3 rounded-xl bg-zinc-950 border border-zinc-900">
-              <span className="text-zinc-400">GitHub App</span>
-              <span className="px-2 py-0.5 rounded-full text-[10px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-[#0D1410] border border-white/[0.06]">
+              <span className="text-[#8A938E]">GitHub App</span>
+              <span className="px-2 py-0.5 rounded-full text-[10px] bg-[#D4FF3D]/10 border border-[#D4FF3D]/20 text-[#D4FF3D]">
                 Connected
               </span>
             </div>
-            <div className="flex items-center justify-between p-3 rounded-xl bg-zinc-950 border border-zinc-900">
-              <span className="text-zinc-400">Sentry Webhook</span>
-              <span className="px-2 py-0.5 rounded-full text-[10px] bg-zinc-900 border border-zinc-800 text-zinc-500">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-[#0D1410] border border-white/[0.06]">
+              <span className="text-[#8A938E]">Sentry Webhook</span>
+              <span className="px-2 py-0.5 rounded-full text-[10px] bg-white/[0.04] border border-white/[0.06] text-[#8A938E]/60">
                 Not configured
               </span>
             </div>
-            <div className="flex items-center justify-between p-3 rounded-xl bg-zinc-950 border border-zinc-900">
-              <span className="text-zinc-400">Slack Alerts</span>
-              <span className="px-2 py-0.5 rounded-full text-[10px] bg-zinc-900 border border-zinc-800 text-zinc-500">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-[#0D1410] border border-white/[0.06]">
+              <span className="text-[#8A938E]">Slack Alerts</span>
+              <span className="px-2 py-0.5 rounded-full text-[10px] bg-white/[0.04] border border-white/[0.06] text-[#8A938E]/60">
                 Not configured
               </span>
             </div>

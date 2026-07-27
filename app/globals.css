@@ -39,6 +39,11 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-lime: var(--lime);
+  --color-surface: var(--surface);
+  --color-code-keyword: var(--code-keyword);
+  --color-code-string: var(--code-string);
+  --color-code-text: var(--code-text);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -81,40 +86,50 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --lime: oklch(0.92 0.19 130);
+  --surface: oklch(0.11 0.015 150);
+  --code-keyword: oklch(0.75 0.12 260);
+  --code-string: oklch(0.85 0.17 130);
+  --code-text: oklch(0.88 0.01 150);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: oklch(0.065 0.01 150);
+  --foreground: oklch(0.97 0.005 150);
+  --card: oklch(0.11 0.015 150);
+  --card-foreground: oklch(0.97 0.005 150);
+  --popover: oklch(0.11 0.015 150);
+  --popover-foreground: oklch(0.97 0.005 150);
+  --primary: oklch(0.92 0.19 130);
+  --primary-foreground: oklch(0.13 0.02 150);
+  --secondary: oklch(0.14 0.015 150);
+  --secondary-foreground: oklch(0.97 0.005 150);
+  --muted: oklch(0.14 0.015 150);
+  --muted-foreground: oklch(0.58 0.015 150);
+  --accent: oklch(0.14 0.015 150);
+  --accent-foreground: oklch(0.97 0.005 150);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: oklch(0.92 0.19 130);
+  --chart-1: oklch(0.92 0.19 130);
+  --chart-2: oklch(0.58 0.015 150);
+  --chart-3: oklch(0.75 0.12 260);
+  --chart-4: oklch(0.65 0.17 290);
+  --chart-5: oklch(0.85 0.17 130);
+  --sidebar: oklch(0.08 0.012 150);
+  --sidebar-foreground: oklch(0.97 0.005 150);
+  --sidebar-primary: oklch(0.92 0.19 130);
+  --sidebar-primary-foreground: oklch(0.13 0.02 150);
+  --sidebar-accent: oklch(0.14 0.015 150);
+  --sidebar-accent-foreground: oklch(0.97 0.005 150);
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: oklch(0.92 0.19 130);
+  --lime: oklch(0.92 0.19 130);
+  --surface: oklch(0.11 0.015 150);
+  --code-keyword: oklch(0.75 0.12 260);
+  --code-string: oklch(0.85 0.17 130);
+  --code-text: oklch(0.88 0.01 150);
 }
 
 @layer base {
@@ -162,6 +177,11 @@
     50% { transform: translateY(-14px) rotate(1deg); }
   }
 
+  @keyframes glow-pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+
   .animate-marquee {
     animation: marquee 30s linear infinite;
   }
@@ -186,6 +206,10 @@
     animation: float-slower 10s ease-in-out infinite;
   }
 
+  .animate-glow-pulse {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
   @keyframes gradient {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -194,5 +218,14 @@
 
   .animate-gradient {
     animation: gradient 4s ease infinite;
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.4s ease-out forwards;
   }
 }

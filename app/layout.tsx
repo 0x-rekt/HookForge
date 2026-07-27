@@ -1,23 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
+  variable: "--font-geist-mono",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Relay | Developer Integration Platform with a Brain",
-  description: "Eliminate friction between your tools. Combine rule-based workflow automation with an autonomous agentic incident responder to resolve issues faster, without human-in-the-loop bottlenecks.",
+  title: "Relay | Developer Integration Platform with Agentic AI",
+  description:
+    "Eliminate friction between your tools. Combine rule-based workflow automation with an autonomous agentic incident responder to resolve issues faster, without human-in-the-loop bottlenecks.",
 };
 
 export default function RootLayout({
@@ -28,7 +29,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("dark", "h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
+      className={cn(
+        "dark",
+        "h-full",
+        "antialiased",
+        inter.variable,
+        jetbrainsMono.variable,
+        "font-sans"
+      )}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

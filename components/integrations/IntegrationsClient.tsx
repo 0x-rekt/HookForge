@@ -24,10 +24,10 @@ const PROVIDERS = [
     icon: SiGithub,
     color: "zinc",
     accentColor: "#e2e8f0",
-    gradient: "from-zinc-900/80 to-zinc-950",
-    border: "border-zinc-700/50 hover:border-zinc-600/70",
-    iconBg: "bg-zinc-800 border-zinc-700",
-    badge: "bg-zinc-800/80 border-zinc-700 text-zinc-300",
+    gradient: "from-white/[0.04] to-[#0D1410]",
+    border: "border-white/[0.08] hover:border-white/[0.15]",
+    iconBg: "bg-white/[0.06] border-white/[0.08]",
+    badge: "bg-white/[0.06] border-white/[0.08] text-[#F5F7F5]",
     triggers: [
       "push",
       "pull_request.*",
@@ -46,10 +46,10 @@ const PROVIDERS = [
     icon: FaSlack,
     color: "green",
     accentColor: "#4ade80",
-    gradient: "from-green-950/30 to-zinc-950",
-    border: "border-green-900/40 hover:border-green-700/50",
-    iconBg: "bg-green-950/60 border-green-800/50",
-    badge: "bg-green-950/60 border-green-800/50 text-green-300",
+    gradient: "from-[#D4FF3D]/5 to-[#0D1410]",
+    border: "border-white/[0.08] hover:border-[#D4FF3D]/20",
+    iconBg: "bg-[#D4FF3D]/10 border-[#D4FF3D]/20",
+    badge: "bg-[#D4FF3D]/10 border-[#D4FF3D]/20 text-[#D4FF3D]",
     triggers: [],
     actions: ["Post to channel", "Send DM", "Lookup channel"],
     docsUrl: "https://api.slack.com/authentication/oauth-v2",
@@ -62,10 +62,10 @@ const PROVIDERS = [
     icon: SiLinear,
     color: "violet",
     accentColor: "#a78bfa",
-    gradient: "from-violet-950/30 to-zinc-950",
-    border: "border-violet-900/40 hover:border-violet-700/50",
-    iconBg: "bg-violet-950/60 border-violet-800/50",
-    badge: "bg-violet-950/60 border-violet-800/50 text-violet-300",
+    gradient: "from-[#C792EA]/5 to-[#0D1410]",
+    border: "border-white/[0.08] hover:border-[#C792EA]/20",
+    iconBg: "bg-[#C792EA]/10 border-[#C792EA]/20",
+    badge: "bg-[#C792EA]/10 border-[#C792EA]/20 text-[#C792EA]",
     triggers: ["Issue.*", "Comment.*"],
     actions: ["Update status", "Add comment", "Create issue"],
     docsUrl: "https://developers.linear.app/docs/oauth/authentication",
@@ -78,10 +78,10 @@ const PROVIDERS = [
     icon: SiSentry,
     color: "rose",
     accentColor: "#fb7185",
-    gradient: "from-rose-950/30 to-zinc-950",
-    border: "border-rose-900/40 hover:border-rose-700/50",
-    iconBg: "bg-rose-950/60 border-rose-800/50",
-    badge: "bg-rose-950/60 border-rose-800/50 text-rose-300",
+    gradient: "from-red-500/5 to-[#0D1410]",
+    border: "border-white/[0.08] hover:border-red-500/20",
+    iconBg: "bg-red-500/10 border-red-500/20",
+    badge: "bg-red-500/10 border-red-500/20 text-red-400",
     triggers: ["event_alert", "metric_alert"],
     actions: ["Read error details", "Get error frequency"],
     docsUrl: "https://docs.sentry.io/api/auth/",
@@ -110,8 +110,8 @@ interface IntegrationsClientProps {
 function StatusBadge({ status }: { status: string }) {
   if (status === "connected") {
     return (
-      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-medium bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
-        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-medium bg-[#D4FF3D]/10 border border-[#D4FF3D]/20 text-[#D4FF3D]">
+        <span className="h-1.5 w-1.5 rounded-full bg-[#D4FF3D] animate-pulse" />
         Connected
       </span>
     );
@@ -125,8 +125,8 @@ function StatusBadge({ status }: { status: string }) {
     );
   }
   return (
-    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-medium bg-zinc-900 border border-zinc-800 text-zinc-500">
-      <span className="h-1.5 w-1.5 rounded-full bg-zinc-600" />
+    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-medium bg-white/[0.04] border border-white/[0.06] text-[#8A938E]">
+      <span className="h-1.5 w-1.5 rounded-full bg-[#8A938E]/60" />
       Not connected
     </span>
   );
@@ -173,13 +173,6 @@ function ProviderCard({
     <div
       className={`relative group overflow-hidden rounded-2xl border bg-gradient-to-br ${provider.gradient} ${provider.border} transition-all duration-300 flex flex-col`}
     >
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-        style={{
-          background: `radial-gradient(ellipse at top left, ${provider.accentColor}08 0%, transparent 70%)`,
-        }}
-      />
-
       <div className="relative p-5 flex flex-col gap-4 flex-1">
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-3">
@@ -190,11 +183,11 @@ function ProviderCard({
               <Icon className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-zinc-100">
+              <h3 className="text-sm font-bold text-[#F5F7F5]">
                 {provider.name}
               </h3>
               {connected?.providerAccountId && (
-                <p className="text-[10px] font-mono text-zinc-500 truncate max-w-[140px]">
+                <p className="text-[10px] font-mono text-[#8A938E] truncate max-w-[140px]">
                   {connected.providerAccountId}
                 </p>
               )}
@@ -203,29 +196,31 @@ function ProviderCard({
           <StatusBadge status={connected?.status ?? "disconnected"} />
         </div>
 
-        <p className="text-xs text-zinc-400 leading-relaxed">
+        <p className="text-xs text-[#8A938E] leading-relaxed">
           {provider.description}
         </p>
         <div className="space-y-2">
           {provider.triggers.length > 0 && (
             <div className="flex flex-wrap gap-1.5">
-              {(provider.triggers as readonly string[]).slice(0, 3).map((t) => (
-                <span
-                  key={t}
-                  className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${provider.badge}`}
-                >
-                  {t}
-                </span>
-              ))}
+              {(provider.triggers as readonly string[])
+                .slice(0, 3)
+                .map((t) => (
+                  <span
+                    key={t}
+                    className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${provider.badge}`}
+                  >
+                    {t}
+                  </span>
+                ))}
               {provider.triggers.length > 3 && (
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border bg-zinc-900/60 border-zinc-800 text-zinc-500">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border bg-white/[0.04] border-white/[0.06] text-[#8A938E]">
                   +{provider.triggers.length - 3} more
                 </span>
               )}
             </div>
           )}
           {provider.triggers.length === 0 && (
-            <span className="text-[10px] font-mono text-zinc-600 italic">
+            <span className="text-[10px] font-mono text-[#8A938E]/60 italic">
               Action-only (no triggers)
             </span>
           )}
@@ -242,7 +237,7 @@ function ProviderCard({
           )}
 
         {localError && (
-          <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400 text-[11px] font-mono">
+          <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-[11px] font-mono">
             <XCircle className="h-3 w-3 shrink-0" />
             {localError}
           </div>
@@ -254,7 +249,7 @@ function ProviderCard({
           href={provider.docsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-[11px] font-mono text-zinc-600 hover:text-zinc-400 transition-colors"
+          className="inline-flex items-center gap-1 text-[11px] font-mono text-[#8A938E]/60 hover:text-[#8A938E] transition-colors"
         >
           Docs <ExternalLink className="h-3 w-3" />
         </a>
@@ -266,8 +261,8 @@ function ProviderCard({
             disabled={isPending}
             className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-[11px] font-medium font-mono transition-all cursor-pointer ${
               disconnectConfirm
-                ? "bg-rose-500/20 border border-rose-500/40 text-rose-400 hover:bg-rose-500/30"
-                : "bg-zinc-900 border border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-zinc-300"
+                ? "bg-red-500/20 border border-red-500/40 text-red-400 hover:bg-red-500/30"
+                : "bg-white/[0.04] border border-white/[0.08] text-[#8A938E] hover:border-white/[0.15] hover:text-[#F5F7F5]"
             }`}
           >
             {isPending ? (
@@ -281,7 +276,7 @@ function ProviderCard({
           <button
             id={`connect-${provider.id}`}
             onClick={handleConnect}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-[11px] font-medium font-mono bg-indigo-600 hover:bg-indigo-500 text-white transition-all cursor-pointer group/btn"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-[11px] font-medium font-mono bg-[#D4FF3D] hover:bg-[#D4FF3D]/90 text-[#0A0F0C] transition-all cursor-pointer group/btn"
           >
             <Plug className="h-3 w-3 transition-transform group-hover/btn:rotate-12" />
             Connect
@@ -308,37 +303,37 @@ export function IntegrationsClient({
   return (
     <div className="space-y-8">
       {error && (
-        <div className="flex items-center gap-3 p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-200 text-sm font-mono">
-          <AlertCircle className="w-5 h-5 shrink-0 text-rose-400" />
+        <div className="flex items-center gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-200 text-sm font-mono">
+          <AlertCircle className="w-5 h-5 shrink-0 text-red-400" />
           <span>Error loading integrations: {error}</span>
         </div>
       )}
 
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-5 rounded-2xl bg-zinc-900/30 border border-zinc-800/80">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-5 rounded-2xl bg-[#151C17] border border-white/[0.08]">
         <div className="flex items-center gap-6">
           <div className="text-center">
-            <p className="text-2xl font-bold font-mono text-zinc-100">
+            <p className="text-2xl font-bold font-mono text-[#F5F7F5]">
               {connectedCount}
             </p>
-            <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
+            <p className="text-[11px] font-mono text-[#8A938E] uppercase tracking-wider">
               Connected
             </p>
           </div>
-          <div className="h-10 w-px bg-zinc-800" />
+          <div className="h-10 w-px bg-white/[0.08]" />
           <div className="text-center">
-            <p className="text-2xl font-bold font-mono text-zinc-400">
+            <p className="text-2xl font-bold font-mono text-[#8A938E]">
               {PROVIDERS.length - connectedCount}
             </p>
-            <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
+            <p className="text-[11px] font-mono text-[#8A938E] uppercase tracking-wider">
               Available
             </p>
           </div>
-          <div className="h-10 w-px bg-zinc-800" />
+          <div className="h-10 w-px bg-white/[0.08]" />
           <div className="text-center">
-            <p className="text-2xl font-bold font-mono text-zinc-100">
+            <p className="text-2xl font-bold font-mono text-[#F5F7F5]">
               {PROVIDERS.length}
             </p>
-            <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
+            <p className="text-[11px] font-mono text-[#8A938E] uppercase tracking-wider">
               Total
             </p>
           </div>
@@ -353,11 +348,11 @@ export function IntegrationsClient({
           </div>
         )}
         {connectedCount > 0 && (
-          <div className="flex items-center gap-2 text-xs text-emerald-400 font-mono bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-2.5">
+          <div className="flex items-center gap-2 text-xs text-[#D4FF3D] font-mono bg-[#D4FF3D]/10 border border-[#D4FF3D]/20 rounded-xl px-4 py-2.5">
             <CheckCircle2 className="h-4 w-4 shrink-0" />
             <span>
-              {connectedCount} integration{connectedCount > 1 ? "s" : ""} active
-              and ready.
+              {connectedCount} integration
+              {connectedCount > 1 ? "s" : ""} active and ready.
             </span>
           </div>
         )}
@@ -374,7 +369,7 @@ export function IntegrationsClient({
         ))}
       </div>
 
-      <p className="text-[11px] font-mono text-zinc-600 text-center pb-4">
+      <p className="text-[11px] font-mono text-[#8A938E]/60 text-center pb-4">
         OAuth tokens are encrypted at rest (AES-256-GCM) and never exposed in
         API responses or logs.
       </p>

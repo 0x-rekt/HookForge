@@ -7,7 +7,7 @@ import { Footer } from "@/components/layout/Footer";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-zinc-950 text-zinc-50 font-sans selection:bg-indigo-500/30">
+    <div className="flex flex-col min-h-screen bg-[#0A0F0C] text-[#F5F7F5] font-sans selection:bg-[#D4FF3D]/20 selection:text-[#F5F7F5]">
       <Navbar />
       <main className="flex-1 w-full">
         <HeroSection />
