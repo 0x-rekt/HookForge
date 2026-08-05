@@ -14,6 +14,8 @@ interface OauthProviderConfig {
   clientSecret: string;
 }
 
+const SENTRY_INTEGRATION_SLUG = process.env.INTEGRATION_SENTRY_SLUG || "relay";
+
 const OAUTH_CONFIGS: Record<string, OauthProviderConfig> = {
   github: {
     authUrl: "https://github.com/login/oauth/authorize",
@@ -32,13 +34,14 @@ const OAUTH_CONFIGS: Record<string, OauthProviderConfig> = {
   linear: {
     authUrl: "https://linear.app/oauth/authorize",
     tokenUrl: "https://api.linear.app/oauth/token",
-    scopes: ["read", "write", "issues:write"],
+    scopes: ["read", "write", "issues:create"],
     clientId: process.env.INTEGRATION_LINEAR_CLIENT_ID!,
     clientSecret: process.env.INTEGRATION_LINEAR_CLIENT_SECRET!,
   },
   sentry: {
-    authUrl: "https://sentry.io/oauth/authorize/",
-    tokenUrl: "https://sentry.io/oauth/token/",
+    authUrl: `https://sentry.io/sentry-apps/${SENTRY_INTEGRATION_SLUG}/external-install/`,
+    tokenUrl:
+      "https://sentry.io/api/0/sentry-app-installations/{installationId}/authorizations/",
     scopes: ["event:read", "org:read", "project:read"],
     clientId: process.env.INTEGRATION_SENTRY_CLIENT_ID!,
     clientSecret: process.env.INTEGRATION_SENTRY_CLIENT_SECRET!,
@@ -111,16 +114,23 @@ export async function GET(
       }),
     ).toString("base64url");
 
-    const authorizeUrl = new URL(config.authUrl);
-    authorizeUrl.searchParams.set("client_id", config.clientId);
-    authorizeUrl.searchParams.set("redirect_uri", redirectUri);
-    authorizeUrl.searchParams.set("response_type", "code");
-    authorizeUrl.searchParams.set("state", statePayload);
+    let authorizeUrl: URL;
 
-    if (providerKey === "slack") {
-      authorizeUrl.searchParams.set("scope", config.scopes.join(","));
+    if (providerKey === "sentry") {
+      authorizeUrl = new URL(config.authUrl);
+      authorizeUrl.searchParams.set("state", statePayload);
     } else {
-      authorizeUrl.searchParams.set("scope", config.scopes.join(" "));
+      authorizeUrl = new URL(config.authUrl);
+      authorizeUrl.searchParams.set("client_id", config.clientId);
+      authorizeUrl.searchParams.set("redirect_uri", redirectUri);
+      authorizeUrl.searchParams.set("response_type", "code");
+      authorizeUrl.searchParams.set("state", statePayload);
+
+      if (providerKey === "slack") {
+        authorizeUrl.searchParams.set("scope", config.scopes.join(","));
+      } else {
+        authorizeUrl.searchParams.set("scope", config.scopes.join(" "));
+      }
     }
 
     return NextResponse.redirect(authorizeUrl.toString());
@@ -289,31 +299,39 @@ export async function GET(
         }
       }
     } else if (providerKey === "sentry") {
-      const body = new URLSearchParams({
-        client_id: config.clientId,
-        client_secret: config.clientSecret,
-        code: code!,
-        redirect_uri: redirectUri,
-        grant_type: "authorization_code",
-      });
-      const res = await fetch(config.tokenUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body.toString(),
-      });
-      tokenData = await res.json();
-      if (!res.ok || tokenData.error) {
+      const installationId = searchParams.get("installationId");
+      if (!installationId) {
         throw new Error(
-          tokenData.error_description ||
-            tokenData.error ||
-            "Sentry token exchange failed",
+          "Sentry callback missing installationId parameter. Ensure your Redirect URL in Sentry app settings points to this endpoint.",
         );
       }
-      accessToken = tokenData.access_token;
-      refreshToken = tokenData.refresh_token || null;
-      expiresIn = tokenData.expires_in || null;
-      providerAccountId =
-        tokenData.user?.email || tokenData.user?.id || tokenData.user?.name;
+
+      const tokenUrl = `https://sentry.io/api/0/sentry-app-installations/${installationId}/authorizations/`;
+      const payload = {
+        grant_type: "authorization_code",
+        code: code!,
+        client_id: config.clientId,
+        client_secret: config.clientSecret,
+      };
+      const res = await fetch(tokenUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      tokenData = await res.json();
+      if (!res.ok || tokenData.detail) {
+        throw new Error(
+          tokenData.detail || tokenData.error || "Sentry token exchange failed",
+        );
+      }
+      accessToken = tokenData.token;
+      refreshToken = tokenData.refreshToken || null;
+      if (tokenData.expiresAt) {
+        expiresIn = Math.floor(
+          (new Date(tokenData.expiresAt).getTime() - Date.now()) / 1000,
+        );
+      }
+      providerAccountId = installationId;
     }
 
     if (!accessToken) {
